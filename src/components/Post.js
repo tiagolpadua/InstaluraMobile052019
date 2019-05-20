@@ -9,10 +9,10 @@ export default class Post extends Component {
     return (
       <View>
         <View style={styles.cabecalho}>
-          <Image source={require('../../resources/img/alura.png')} style={styles.fotoDePerfil} />
-          <Text>{foto.usuario}</Text>
+          <Image source={{ uri: foto.urlPerfil }} style={styles.fotoDePerfil} />
+          <Text>{foto.loginUsuario}</Text>
         </View>
-        <Image source={require('../../resources/img/alura.png')} style={styles.foto} />
+        <Image source={{ uri: foto.urlFoto }} style={styles.foto} />
       </View>
     );
   }

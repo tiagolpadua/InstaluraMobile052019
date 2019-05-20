@@ -5,13 +5,21 @@ import Post from './Post';
 const { width } = Dimensions.get('screen');
 
 export default class Feed extends Component {
-  render() {
-    const fotos = [
-      { id: 1, usuario: 'rafael' },
-      { id: 2, usuario: 'alberto' },
-      { id: 3, usuario: 'vitor' },
-    ];
+  constructor() {
+    super();
+    this.state = {
+      fotos: [],
+    };
+  }
 
+  componentDidMount() {
+    fetch('https://instalura-api.herokuapp.com/api/public/fotos/rafael')
+      .then(resposta => resposta.json())
+      .then(json => this.setState({ fotos: json }));
+  }
+
+  render() {
+    const { fotos } = this.state;
     return (
       <FlatList
         style={styles.container}
