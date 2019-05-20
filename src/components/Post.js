@@ -42,7 +42,11 @@ export default class Post extends Component {
           </TouchableOpacity>
         </View>
         <Text style={styles.likes}>
-          {foto.likers.length} {foto.likers.length > 1 ? 'curtidas' : 'curtida'}
+          {foto.likers.length > 0 ? (
+            <Text style={styles.likes}>
+              {foto.likers.length} {foto.likers.length > 1 ? 'curtidas' : 'curtida'}
+            </Text>
+          ) : null}
         </Text>
       </View>
     );
