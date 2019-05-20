@@ -4,8 +4,17 @@ import { StyleSheet, Image, Text, View, Dimensions } from 'react-native';
 const { width } = Dimensions.get('screen');
 
 export default class Post extends Component {
-  render() {
+  constructor(props) {
+    super(props);
     const { foto } = this.props;
+    this.state = {
+      foto,
+    };
+  }
+
+  render() {
+    const { foto } = this.state;
+
     return (
       <View>
         <View style={styles.cabecalho}>
@@ -13,6 +22,10 @@ export default class Post extends Component {
           <Text>{foto.loginUsuario}</Text>
         </View>
         <Image source={{ uri: foto.urlFoto }} style={styles.foto} />
+
+        <View style={styles.rodape}>
+          <Image style={styles.botaoDeLike} source={require('../../resources/img/s2.png')} />
+        </View>
       </View>
     );
   }
@@ -33,5 +46,12 @@ const styles = StyleSheet.create({
   foto: {
     width,
     height: width,
+  },
+  rodape: {
+    margin: 10,
+  },
+  botaoDeLike: {
+    height: 40,
+    width: 40,
   },
 });

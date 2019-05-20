@@ -23,7 +23,7 @@ export default class Feed extends Component {
     return (
       <FlatList
         style={styles.container}
-        keyExtractor={item => item.id}
+        keyExtractor={item => `${item.id}`}
         data={fotos}
         renderItem={({ item }) => <Post foto={item} />}
       />
