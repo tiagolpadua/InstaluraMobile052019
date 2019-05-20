@@ -48,9 +48,25 @@ export default class Post extends Component {
   }
 
   adicionaComentario = () => {
-    const { valorComentario } = this.state;
-    console.warn(valorComentario);
-    this.inputComentario.clear(); // para limpar o campo de texto
+    const { valorComentario, foto } = this.state;
+    if (valorComentario === '') return;
+
+    const novaLista = [
+      ...foto.comentarios,
+      {
+        id: valorComentario,
+        login: 'meuUsuario',
+        texto: valorComentario,
+      },
+    ];
+
+    const fotoAtualizada = {
+      ...foto,
+      comentarios: novaLista,
+    };
+
+    this.setState({ foto: fotoAtualizada, valorComentario: '' });
+    this.inputComentario.clear();
   };
 
   like = () => {
