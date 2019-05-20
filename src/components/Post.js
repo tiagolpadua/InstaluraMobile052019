@@ -41,9 +41,12 @@ export default class Post extends Component {
 
   like = () => {
     const { foto } = this.state;
+
     let novaLista = [];
     if (!foto.likeada) {
-      novaLista = foto.likers.concat({ login: 'meuUsuario' });
+      novaLista = [...foto.likers, { login: 'meuUsuario' }];
+    } else {
+      novaLista = foto.likers.filter(liker => liker.login !== 'meuUsuario');
     }
 
     const fotoAtualizada = {
@@ -51,7 +54,6 @@ export default class Post extends Component {
       likeada: !foto.likeada,
       likers: novaLista,
     };
-
     this.setState({ foto: fotoAtualizada });
   };
 
