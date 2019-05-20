@@ -4,6 +4,12 @@ import { StyleSheet, TouchableOpacity, Image, Text, View, Dimensions } from 'rea
 const { width } = Dimensions.get('screen');
 
 export default class Post extends Component {
+  static carregaIcone(likeada) {
+    return likeada
+      ? require('../../resources/img/s2-checked.png')
+      : require('../../resources/img/s2.png');
+  }
+
   constructor(props) {
     super(props);
     const { foto } = this.props;
@@ -11,6 +17,13 @@ export default class Post extends Component {
       foto,
     };
   }
+
+  like = () => {
+    this.setState(prevState => {
+      const fotoAtualizada = { ...prevState.foto, likeada: !prevState.foto.likeada };
+      return { foto: fotoAtualizada };
+    });
+  };
 
   render() {
     const { foto } = this.state;
@@ -24,15 +37,8 @@ export default class Post extends Component {
         <Image source={{ uri: foto.urlFoto }} style={styles.foto} />
 
         <View style={styles.rodape}>
-          <TouchableOpacity onPress={() => console.warn('Touchable Opacity respondendo!')}>
-            <Image
-              style={styles.botaoDeLike}
-              source={
-                foto.likeada
-                  ? require('../../resources/img/s2-checked.png')
-                  : require('../../resources/img/s2.png')
-              }
-            />
+          <TouchableOpacity onPress={this.like}>
+            <Image style={styles.botaoDeLike} source={Post.carregaIcone(foto.likeada)} />
           </TouchableOpacity>
         </View>
       </View>
