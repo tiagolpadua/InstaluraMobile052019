@@ -18,7 +18,7 @@ export default class Feed extends Component {
         data={fotos}
         renderItem={({ item }) => (
           <View>
-            <View>
+            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
               <Image
                 source={require('../../resources/img/alura.png')}
                 style={{ width: 40, height: 40 }}
