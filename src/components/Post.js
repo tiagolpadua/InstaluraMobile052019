@@ -25,7 +25,14 @@ export default class Post extends Component {
 
         <View style={styles.rodape}>
           <TouchableOpacity onPress={() => console.warn('Touchable Opacity respondendo!')}>
-            <Image style={styles.botaoDeLike} source={require('../../resources/img/s2.png')} />
+            <Image
+              style={styles.botaoDeLike}
+              source={
+                foto.likeada
+                  ? require('../../resources/img/s2-checked.png')
+                  : require('../../resources/img/s2.png')
+              }
+            />
           </TouchableOpacity>
         </View>
       </View>
