@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { StyleSheet, FlatList, Image, Text, View, Dimensions } from 'react-native';
+import { StyleSheet, FlatList, Dimensions } from 'react-native';
+import Post from './Post';
 
 const { width } = Dimensions.get('screen');
 
@@ -16,18 +17,7 @@ export default class Feed extends Component {
         style={styles.container}
         keyExtractor={item => item.id}
         data={fotos}
-        renderItem={({ item }) => (
-          <View>
-            <View style={styles.cabecalho}>
-              <Image
-                source={require('../../resources/img/alura.png')}
-                style={styles.fotoDePerfil}
-              />
-              <Text>{item.usuario}</Text>
-            </View>
-            <Image source={require('../../resources/img/alura.png')} style={styles.foto} />
-          </View>
-        )}
+        renderItem={({ item }) => <Post foto={item} />}
       />
     );
   }
