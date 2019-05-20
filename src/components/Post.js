@@ -47,6 +47,12 @@ export default class Post extends Component {
     };
   }
 
+  adicionaComentario = () => {
+    const { valorComentario } = this.state;
+    console.warn(valorComentario);
+    this.inputComentario.clear(); // para limpar o campo de texto
+  };
+
   like = () => {
     const { foto } = this.state;
 
@@ -92,9 +98,18 @@ export default class Post extends Component {
         ))}
 
         <View style={styles.novoComentario}>
-          <TextInput style={styles.input} placeholder="Adicione um comentário..." />
+          <TextInput
+            style={styles.input}
+            placeholder="Adicione um comentário..."
+            ref={input => {
+              this.inputComentario = input;
+            }}
+            onChangeText={texto => this.setState({ valorComentario: texto })}
+          />
 
-          <Image style={styles.icone} source={require('../../resources/img/send.png')} />
+          <TouchableOpacity onPress={this.adicionaComentario}>
+            <Image style={styles.icone} source={require('../../resources/img/send.png')} />
+          </TouchableOpacity>
         </View>
       </View>
     );
