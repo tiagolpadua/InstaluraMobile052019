@@ -40,10 +40,19 @@ export default class Post extends Component {
   }
 
   like = () => {
-    this.setState(prevState => {
-      const fotoAtualizada = { ...prevState.foto, likeada: !prevState.foto.likeada };
-      return { foto: fotoAtualizada };
-    });
+    const { foto } = this.state;
+    let novaLista = [];
+    if (!foto.likeada) {
+      novaLista = foto.likers.concat({ login: 'meuUsuario' });
+    }
+
+    const fotoAtualizada = {
+      ...foto,
+      likeada: !foto.likeada,
+      likers: novaLista,
+    };
+
+    this.setState({ foto: fotoAtualizada });
   };
 
   render() {
