@@ -11,6 +11,7 @@
     "no-use-before-define": "off",
     "react/prop-types": "off",
     "comma-dangle": "off",
+    "global-require": "off",
     "react/prefer-stateless-function": "off",
     "prettier/prettier": [
       "error",
