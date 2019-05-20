@@ -75,6 +75,13 @@ export default class Post extends Component {
         </View>
         {Post.exibeLikes(foto.likers)}
         {Post.exibeLegenda(foto)}
+
+        {foto.comentarios.map(comentario => (
+          <View>
+            <Text>{comentario.login}</Text>
+            <Text>{comentario.texto}</Text>
+          </View>
+        ))}
       </View>
     );
   }
