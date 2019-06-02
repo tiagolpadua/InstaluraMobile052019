@@ -64,7 +64,7 @@ export default class Feed extends Component {
         };
         this.atualizaFotos(fotoAtualizada);
 
-        InstaluraFetchService.post(`/fotos/${idFoto}/likexx`).catch(() => {
+        InstaluraFetchService.post(`/fotos/${idFoto}/like`).catch(() => {
           this.setState({ fotos: listaOriginal });
           Notificacao.exibe('Ops..', 'Algo deu errado!');
         });
