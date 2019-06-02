@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, FlatList, Dimensions } from 'react-native';
+import { FlatList, Platform, StyleSheet } from 'react-native';
 import Post from './Post';
-
-const { width } = Dimensions.get('screen');
 
 export default class Feed extends Component {
   constructor() {
@@ -34,20 +32,5 @@ export default class Feed extends Component {
 const styles = StyleSheet.create({
   container: {
     marginTop: Platform.OS === 'ios' ? 20 : 0,
-  },
-  cabecalho: {
-    margin: 10,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  fotoDePerfil: {
-    marginRight: 10,
-    borderRadius: 20,
-    width: 40,
-    height: 40,
-  },
-  foto: {
-    width,
-    height: width,
   },
 });
