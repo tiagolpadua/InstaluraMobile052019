@@ -19,7 +19,7 @@ export default class Feed extends Component {
   adicionaComentario = (idFoto, valorComentario, inputComentario) => {
     if (valorComentario === '') return;
     const { fotos } = this.state;
-    const foto = fotos.find(f => f.id === idFoto);
+    const foto = this.buscaPorId(idFoto);
     const novaLista = [
       ...foto.comentarios,
       {
@@ -39,7 +39,7 @@ export default class Feed extends Component {
 
   like = idFoto => {
     const { fotos } = this.state;
-    const foto = fotos.find(f => f.id === idFoto);
+    const foto = this.buscaPorId(idFoto);
     let novaLista = [];
     if (!foto.likeada) {
       novaLista = [...foto.likers, { login: 'meuUsuario' }];
@@ -54,6 +54,11 @@ export default class Feed extends Component {
     const fotosAtualizadas = fotos.map(f => (f.id === fotoAtualizada.id ? fotoAtualizada : f));
     this.setState({ fotos: fotosAtualizadas });
   };
+
+  buscaPorId(idFoto) {
+    const { fotos } = this.state;
+    return fotos.find(f => f.id === idFoto);
+  }
 
   render() {
     const { fotos } = this.state;
