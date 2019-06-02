@@ -6,6 +6,10 @@ import { AsyncStorage, Button, Dimensions, StyleSheet, Text, TextInput, View } f
 
 const { width } = Dimensions.get('screen');
 export default class Login extends Component {
+  static navigationOptions = {
+    header: null,
+  };
+
   constructor() {
     super();
     this.state = {
