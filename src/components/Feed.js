@@ -5,8 +5,10 @@ import InstaluraFetchService from '../services/InstaluraFetchService';
 import Notificacao from '../api/Notificacao.android';
 
 export default class Feed extends Component {
-  static navigationOptions = {
-    title: 'Instalura',
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: navigation.getParam('usuario', 'Instalura'),
+    };
   };
 
   constructor() {
@@ -17,7 +19,12 @@ export default class Feed extends Component {
   }
 
   componentDidMount() {
-    InstaluraFetchService.get('/fotos').then(json => this.setState({ fotos: json }));
+    let uri = '/fotos';
+    const { navigation } = this.props;
+    const usuario = navigation.getParam('usuario');
+    if (usuario) uri = `/public/fotos/${usuario}`;
+
+    InstaluraFetchService.get(uri).then(json => this.setState({ fotos: json }));
   }
 
   adicionaComentario = (idFoto, valorComentario, inputComentario) => {
@@ -71,6 +78,12 @@ export default class Feed extends Component {
       });
   };
 
+  verPerfilUsuario = idFoto => {
+    const { navigation } = this.props;
+    const foto = this.buscaPorId(idFoto);
+    navigation.navigate('PerfilUsuario', { usuario: foto.loginUsuario });
+  };
+
   atualizaFotos = fotoAtualizada => {
     const { fotos } = this.state;
     const fotosAtualizadas = fotos.map(f => (f.id === fotoAtualizada.id ? fotoAtualizada : f));
@@ -90,7 +103,12 @@ export default class Feed extends Component {
         keyExtractor={item => `${item.id}`}
         data={fotos}
         renderItem={({ item }) => (
-          <Post foto={item} likeCallback={this.like} comentarioCallback={this.adicionaComentario} />
+          <Post
+            foto={item}
+            likeCallback={this.like}
+            comentarioCallback={this.adicionaComentario}
+            verPerfilCallback={this.verPerfilUsuario}
+          />
         )}
       />
     );

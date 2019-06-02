@@ -11,6 +11,7 @@ const RootStack = createStackNavigator(
     Login,
     Feed,
     AluraLingua,
+    PerfilUsuario: Feed,
   },
   {
     initialRouteName: 'Login',
