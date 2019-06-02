@@ -25,8 +25,8 @@ export default class Login extends Component {
   constructor() {
     super();
     this.state = {
-      usuario: '', // rafael
-      senha: '', // 123456
+      usuario: 'rafael', // rafael
+      senha: '123456', // 123456
       mensagem: '',
     };
   }
@@ -71,7 +71,7 @@ export default class Login extends Component {
   };
 
   render() {
-    const { mensagem } = this.state;
+    const { mensagem, usuario, senha } = this.state;
     const { navigation } = this.props;
     return (
       <View style={styles.container}>
@@ -82,6 +82,7 @@ export default class Login extends Component {
             autoCapitalize="none"
             placeholder="Usuário..."
             onChangeText={texto => this.setState({ usuario: texto })}
+            value={usuario}
           />
           <TextInput
             style={styles.input}
@@ -89,6 +90,7 @@ export default class Login extends Component {
             secureTextEntry
             placeholder="Senha..."
             onChangeText={texto => this.setState({ senha: texto })}
+            value={senha}
           />
           <Button title="Login" onPress={this.efetuaLogin} />
           <View style={{ marginTop: 50 }}>
