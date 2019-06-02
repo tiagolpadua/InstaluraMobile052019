@@ -10,6 +10,9 @@ export default class InputComentario extends Component {
   }
 
   render() {
+    const { comentarioCallback, idFoto } = this.props;
+    const { valorComentario } = this.state;
+
     return (
       <View style={styles.novoComentario}>
         <TextInput
@@ -24,9 +27,7 @@ export default class InputComentario extends Component {
 
         <TouchableOpacity
           onPress={() => {
-            const { valorComentario } = this.state;
-            const { comentarioCallback } = this.props;
-            comentarioCallback(valorComentario, this.inputComentario);
+            comentarioCallback(idFoto, valorComentario, this.inputComentario);
             this.setState({ valorComentario: '' });
           }}
         >

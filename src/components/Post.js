@@ -17,38 +17,8 @@ export default class Post extends Component {
     );
   }
 
-  constructor(props) {
-    super(props);
-    const { foto } = this.props;
-    this.state = {
-      foto,
-    };
-  }
-
-  adicionaComentario = (valorComentario, inputComentario) => {
-    const { foto } = this.state;
-    if (valorComentario === '') return;
-
-    const novaLista = [
-      ...foto.comentarios,
-      {
-        id: valorComentario,
-        login: 'meuUsuario',
-        texto: valorComentario,
-      },
-    ];
-
-    const fotoAtualizada = {
-      ...foto,
-      comentarios: novaLista,
-    };
-
-    this.setState({ foto: fotoAtualizada });
-    inputComentario.clear();
-  };
-
   render() {
-    const { foto, likeCallback } = this.props;
+    const { foto, likeCallback, comentarioCallback } = this.props;
 
     return (
       <View>
@@ -69,7 +39,7 @@ export default class Post extends Component {
             </View>
           ))}
 
-          <InputComentario comentarioCallback={this.adicionaComentario} />
+          <InputComentario idFoto={foto.id} comentarioCallback={comentarioCallback} />
         </View>
       </View>
     );

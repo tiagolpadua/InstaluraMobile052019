@@ -16,6 +16,27 @@ export default class Feed extends Component {
       .then(json => this.setState({ fotos: json }));
   }
 
+  adicionaComentario = (idFoto, valorComentario, inputComentario) => {
+    if (valorComentario === '') return;
+    const { fotos } = this.state;
+    const foto = fotos.find(f => f.id === idFoto);
+    const novaLista = [
+      ...foto.comentarios,
+      {
+        id: valorComentario,
+        login: 'meuUsuario',
+        texto: valorComentario,
+      },
+    ];
+    const fotoAtualizada = {
+      ...foto,
+      comentarios: novaLista,
+    };
+    const fotosAtualizadas = fotos.map(f => (f.id === fotoAtualizada.id ? fotoAtualizada : f));
+    this.setState({ fotos: fotosAtualizadas });
+    inputComentario.clear();
+  };
+
   like = idFoto => {
     const { fotos } = this.state;
     const foto = fotos.find(f => f.id === idFoto);
@@ -41,7 +62,9 @@ export default class Feed extends Component {
         style={styles.container}
         keyExtractor={item => `${item.id}`}
         data={fotos}
-        renderItem={({ item }) => <Post foto={item} likeCallback={this.like} />}
+        renderItem={({ item }) => (
+          <Post foto={item} likeCallback={this.like} comentarioCallback={this.adicionaComentario} />
+        )}
       />
     );
   }
