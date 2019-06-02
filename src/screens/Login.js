@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
-import { Button, Dimensions, StyleSheet, Text, TextInput, View } from 'react-native';
+import { AsyncStorage, Button, Dimensions, StyleSheet, Text, TextInput, View } from 'react-native';
+
+// https://github.com/react-native-community/react-native-async-storage
+// https://github.com/facebook/react-native/issues/20841#issuecomment-427289537
 
 const { width } = Dimensions.get('screen');
 export default class Login extends Component {
@@ -8,6 +11,7 @@ export default class Login extends Component {
     this.state = {
       usuario: '',
       senha: '',
+      mensagem: '',
     };
   }
 
@@ -29,10 +33,21 @@ export default class Login extends Component {
         if (response.ok) return response.text();
         throw new Error('Não foi possível efetuar login');
       })
-      .then(token => console.warn(token));
+      .then(token => {
+        AsyncStorage.setItem('token', token);
+        AsyncStorage.setItem('usuario', usuario);
+      })
+      .catch(error => this.setState({ mensagem: error.message }));
+  };
+
+  logout = () => {
+    AsyncStorage.removeItem('usuario');
+    AsyncStorage.removeItem('token');
+    // ir para a tela de logout
   };
 
   render() {
+    const { mensagem } = this.state;
     return (
       <View style={styles.container}>
         <Text style={styles.titulo}>Instalura</Text>
@@ -52,6 +67,7 @@ export default class Login extends Component {
           />
           <Button title="Login" onPress={this.efetuaLogin} />
         </View>
+        <Text style={styles.mensagem}>{mensagem}</Text>
       </View>
     );
   }
@@ -74,5 +90,9 @@ const styles = StyleSheet.create({
   titulo: {
     fontWeight: 'bold',
     fontSize: 26,
+  },
+  mensagem: {
+    marginTop: 15,
+    color: '#e74c3c',
   },
 });
