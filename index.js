@@ -1,6 +1,13 @@
-import { AppRegistry, YellowBox } from 'react-native';
+// https://reactnavigation.org/docs/en/getting-started.html
+
+import { AppRegistry } from 'react-native';
+import { createStackNavigator, createAppContainer } from 'react-navigation';
 import Login from './src/screens/Login';
 
-YellowBox.ignoreWarnings(['Require cycle:']);
+const RootStack = createStackNavigator({
+  Login,
+});
 
-AppRegistry.registerComponent('InstaluraMobile', () => Login);
+const AppContainer = createAppContainer(RootStack);
+
+AppRegistry.registerComponent('InstaluraMobile', () => AppContainer);
