@@ -1,14 +1,16 @@
 // https://reactnavigation.org/docs/en/getting-started.html
 
 import { AppRegistry } from 'react-native';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
-import Login from './src/screens/Login';
+import { createAppContainer, createStackNavigator } from 'react-navigation';
 import Feed from './src/components/Feed';
+import Login from './src/screens/Login';
+import AluraLingua from './src/components/AluraLingua';
 
 const RootStack = createStackNavigator(
   {
     Login,
     Feed,
+    AluraLingua,
   },
   {
     initialRouteName: 'Login',
