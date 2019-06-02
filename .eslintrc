@@ -23,7 +23,8 @@
     ]
   },
   "globals": {
-    "fetch": false
+    "fetch": false,
+    "Headers": false
   },
   "plugins": ["prettier"]
 }
