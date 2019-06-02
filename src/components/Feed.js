@@ -16,6 +16,24 @@ export default class Feed extends Component {
       .then(json => this.setState({ fotos: json }));
   }
 
+  like = idFoto => {
+    const { fotos } = this.state;
+    const foto = fotos.find(f => f.id === idFoto);
+    let novaLista = [];
+    if (!foto.likeada) {
+      novaLista = [...foto.likers, { login: 'meuUsuario' }];
+    } else {
+      novaLista = foto.likers.filter(liker => liker.login !== 'meuUsuario');
+    }
+    const fotoAtualizada = {
+      ...foto,
+      likeada: !foto.likeada,
+      likers: novaLista,
+    };
+    const fotosAtualizadas = fotos.map(f => (f.id === fotoAtualizada.id ? fotoAtualizada : f));
+    this.setState({ fotos: fotosAtualizadas });
+  };
+
   render() {
     const { fotos } = this.state;
     return (
@@ -23,7 +41,7 @@ export default class Feed extends Component {
         style={styles.container}
         keyExtractor={item => `${item.id}`}
         data={fotos}
-        renderItem={({ item }) => <Post foto={item} />}
+        renderItem={({ item }) => <Post foto={item} likeCallback={this.like} />}
       />
     );
   }

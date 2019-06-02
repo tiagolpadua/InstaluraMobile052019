@@ -47,26 +47,8 @@ export default class Post extends Component {
     inputComentario.clear();
   };
 
-  like = () => {
-    const { foto } = this.state;
-
-    let novaLista = [];
-    if (!foto.likeada) {
-      novaLista = [...foto.likers, { login: 'meuUsuario' }];
-    } else {
-      novaLista = foto.likers.filter(liker => liker.login !== 'meuUsuario');
-    }
-
-    const fotoAtualizada = {
-      ...foto,
-      likeada: !foto.likeada,
-      likers: novaLista,
-    };
-    this.setState({ foto: fotoAtualizada });
-  };
-
   render() {
-    const { foto } = this.state;
+    const { foto, likeCallback } = this.props;
 
     return (
       <View>
@@ -77,7 +59,7 @@ export default class Post extends Component {
         <Image source={{ uri: foto.urlFoto }} style={styles.foto} />
 
         <View style={styles.rodape}>
-          <Likes foto={foto} likeCallback={this.like} />
+          <Likes foto={foto} likeCallback={likeCallback} />
           {Post.exibeLegenda(foto)}
 
           {foto.comentarios.map(comentario => (
