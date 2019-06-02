@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { AsyncStorage, FlatList, Platform, StyleSheet } from 'react-native';
 import Post from './Post';
 import InstaluraFetchService from '../services/InstaluraFetchService';
+import Notificacao from '../api/Notificacao.android';
 
 export default class Feed extends Component {
   static navigationOptions = {
@@ -42,6 +43,7 @@ export default class Feed extends Component {
 
   like = idFoto => {
     const foto = this.buscaPorId(idFoto);
+    const { fotos: listaOriginal } = this.state;
     AsyncStorage.getItem('usuario')
       .then(usuarioLogado => {
         let novaLista = [];
@@ -62,7 +64,10 @@ export default class Feed extends Component {
         };
         this.atualizaFotos(fotoAtualizada);
 
-        InstaluraFetchService.post(`/fotos/${idFoto}/like`);
+        InstaluraFetchService.post(`/fotos/${idFoto}/likexx`).catch(() => {
+          this.setState({ fotos: listaOriginal });
+          Notificacao.exibe('Ops..', 'Algo deu errado!');
+        });
       });
   };
 

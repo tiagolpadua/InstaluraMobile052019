@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { NavigationActions, StackActions } from 'react-navigation';
 
-YellowBox.ignoreWarnings(['Require cycle:']);
+YellowBox.ignoreWarnings(['Require cycle:', 'Async Storage']);
 
 // https://github.com/react-native-community/react-native-async-storage
 // https://github.com/facebook/react-native/issues/20841#issuecomment-427289537
