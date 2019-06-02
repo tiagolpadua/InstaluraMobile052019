@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
-import { AsyncStorage, FlatList, Platform, StyleSheet } from 'react-native';
-import Post from './Post';
-import InstaluraFetchService from '../services/InstaluraFetchService';
+import { AsyncStorage, FlatList, Platform, ScrollView, StyleSheet } from 'react-native';
+import { NavigationEvents } from 'react-navigation';
 import Notificacao from '../api/Notificacao.android';
+import InstaluraFetchService from '../services/InstaluraFetchService';
+import HeaderUsuario from './HeaderUsuario';
+import Post from './Post';
 
 export default class Feed extends Component {
   static navigationOptions = ({ navigation }) => {
@@ -18,14 +20,14 @@ export default class Feed extends Component {
     };
   }
 
-  componentDidMount() {
+  update = () => {
     let uri = '/fotos';
     const { navigation } = this.props;
     const usuario = navigation.getParam('usuario');
     if (usuario) uri = `/public/fotos/${usuario}`;
 
     InstaluraFetchService.get(uri).then(json => this.setState({ fotos: json }));
-  }
+  };
 
   adicionaComentario = (idFoto, valorComentario, inputComentario) => {
     if (valorComentario === '') return;
@@ -81,7 +83,10 @@ export default class Feed extends Component {
   verPerfilUsuario = idFoto => {
     const { navigation } = this.props;
     const foto = this.buscaPorId(idFoto);
-    navigation.navigate('PerfilUsuario', { usuario: foto.loginUsuario });
+    navigation.navigate('PerfilUsuario', {
+      usuario: foto.loginUsuario,
+      fotoDePerfil: foto.urlPerfil,
+    });
   };
 
   atualizaFotos = fotoAtualizada => {
@@ -89,6 +94,18 @@ export default class Feed extends Component {
     const fotosAtualizadas = fotos.map(f => (f.id === fotoAtualizada.id ? fotoAtualizada : f));
     this.setState({ fotos: fotosAtualizadas });
   };
+
+  exibeHeader() {
+    const { navigation } = this.props;
+    const { fotos } = this.state;
+    const usuario = navigation.getParam('usuario');
+    const fotoDePerfil = navigation.getParam('fotoDePerfil');
+    return (
+      usuario && (
+        <HeaderUsuario usuario={usuario} fotoDePerfil={fotoDePerfil} posts={fotos.length} />
+      )
+    );
+  }
 
   buscaPorId(idFoto) {
     const { fotos } = this.state;
@@ -98,19 +115,23 @@ export default class Feed extends Component {
   render() {
     const { fotos } = this.state;
     return (
-      <FlatList
-        style={styles.container}
-        keyExtractor={item => `${item.id}`}
-        data={fotos}
-        renderItem={({ item }) => (
-          <Post
-            foto={item}
-            likeCallback={this.like}
-            comentarioCallback={this.adicionaComentario}
-            verPerfilCallback={this.verPerfilUsuario}
-          />
-        )}
-      />
+      <ScrollView>
+        <NavigationEvents onWillFocus={() => this.update()} />
+        {this.exibeHeader()}
+        <FlatList
+          style={styles.container}
+          keyExtractor={item => `${item.id}`}
+          data={fotos}
+          renderItem={({ item }) => (
+            <Post
+              foto={item}
+              likeCallback={this.like}
+              comentarioCallback={this.adicionaComentario}
+              verPerfilCallback={this.verPerfilUsuario}
+            />
+          )}
+        />
+      </ScrollView>
     );
   }
 }
