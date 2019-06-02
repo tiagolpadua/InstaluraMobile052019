@@ -9,6 +9,7 @@ import {
   View,
   YellowBox,
 } from 'react-native';
+import { NavigationActions, StackActions } from 'react-navigation';
 
 YellowBox.ignoreWarnings(['Require cycle:']);
 
@@ -52,7 +53,13 @@ export default class Login extends Component {
       .then(token => {
         AsyncStorage.setItem('token', token);
         AsyncStorage.setItem('usuario', usuario);
-        navigation.navigate('Feed');
+
+        // https://reactnavigation.org/docs/en/stack-actions.html#reset
+        const resetAction = StackActions.reset({
+          index: 0,
+          actions: [NavigationActions.navigate({ routeName: 'Feed' })],
+        });
+        navigation.dispatch(resetAction);
       })
       .catch(error => this.setState({ mensagem: error.message }));
   };
