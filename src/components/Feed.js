@@ -3,6 +3,10 @@ import { FlatList, Platform, StyleSheet } from 'react-native';
 import Post from './Post';
 
 export default class Feed extends Component {
+  static navigationOptions = {
+    title: 'Instalura',
+  };
+
   constructor() {
     super();
     this.state = {

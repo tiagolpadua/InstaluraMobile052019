@@ -1,5 +1,16 @@
 import React, { Component } from 'react';
-import { AsyncStorage, Button, Dimensions, StyleSheet, Text, TextInput, View } from 'react-native';
+import {
+  AsyncStorage,
+  Button,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+  YellowBox,
+} from 'react-native';
+
+YellowBox.ignoreWarnings(['Require cycle:']);
 
 // https://github.com/react-native-community/react-native-async-storage
 // https://github.com/facebook/react-native/issues/20841#issuecomment-427289537
@@ -13,14 +24,15 @@ export default class Login extends Component {
   constructor() {
     super();
     this.state = {
-      usuario: '',
-      senha: '',
+      usuario: 'rafael',
+      senha: '123456',
       mensagem: '',
     };
   }
 
   efetuaLogin = () => {
     const { usuario, senha } = this.state;
+    const { navigation } = this.props;
     const uri = 'https://instalura-api.herokuapp.com/api/public/login';
     const requestInfo = {
       method: 'POST',
@@ -40,6 +52,7 @@ export default class Login extends Component {
       .then(token => {
         AsyncStorage.setItem('token', token);
         AsyncStorage.setItem('usuario', usuario);
+        navigation.navigate('Feed');
       })
       .catch(error => this.setState({ mensagem: error.message }));
   };
