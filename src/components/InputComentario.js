@@ -1,7 +1,13 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { StyleSheet, View, Image, TouchableOpacity, TextInput } from 'react-native';
 
 export default class InputComentario extends Component {
+  static propTypes = {
+    idFoto: PropTypes.number.isRequired,
+    comentarioCallback: PropTypes.func.isRequired,
+  };
+
   constructor() {
     super();
     this.state = {

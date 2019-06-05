@@ -1,7 +1,14 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 
 export default class HeaderUsuario extends Component {
+  static propTypes = {
+    usuario: PropTypes.string.isRequired,
+    fotoDePerfil: PropTypes.string.isRequired,
+    posts: PropTypes.number.isRequired,
+  };
+
   render() {
     const { usuario, fotoDePerfil, posts } = this.props;
     return (
