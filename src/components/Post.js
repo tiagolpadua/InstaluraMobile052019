@@ -4,29 +4,13 @@ import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import InputComentario from './InputComentario';
 import Likes from './Likes';
+import fotoType from '../types';
 
 const { width } = Dimensions.get('screen');
 
 export default class Post extends Component {
   static propTypes = {
-    foto: PropTypes.shape({
-      urlPerfil: PropTypes.string.isRequired,
-      loginUsuario: PropTypes.string.isRequired,
-      urlFoto: PropTypes.string.isRequired,
-      id: PropTypes.number.isRequired,
-      likeada: PropTypes.bool.isRequired,
-      likers: PropTypes.arrayOf(
-        PropTypes.shape({
-          login: PropTypes.string.isRequired,
-        })
-      ).isRequired,
-      comentarios: PropTypes.arrayOf(
-        PropTypes.shape({
-          login: PropTypes.string.isRequired,
-          texto: PropTypes.string.isRequired,
-        })
-      ).isRequired,
-    }).isRequired,
+    foto: fotoType.isRequired,
     likeCallback: PropTypes.func.isRequired,
     comentarioCallback: PropTypes.func.isRequired,
     verPerfilCallback: PropTypes.func.isRequired,
