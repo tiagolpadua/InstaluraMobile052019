@@ -8,7 +8,6 @@ import Likes from './Likes';
 const { width } = Dimensions.get('screen');
 
 export default class Post extends Component {
-  /*
   static propTypes = {
     foto: PropTypes.shape({
       urlPerfil: PropTypes.string.isRequired,
@@ -23,18 +22,11 @@ export default class Post extends Component {
       ).isRequired,
       comentarios: PropTypes.arrayOf(
         PropTypes.shape({
-          comentario: PropTypes.string.isRequired,
+          login: PropTypes.string.isRequired,
+          texto: PropTypes.string.isRequired,
         })
       ).isRequired,
     }).isRequired,
-    likeCallback: PropTypes.func.isRequired,
-    comentarioCallback: PropTypes.func.isRequired,
-    verPerfilCallback: PropTypes.func.isRequired,
-  };
-  */
-
-  static propTypes = {
-    foto: PropTypes.object.isRequired,
     likeCallback: PropTypes.func.isRequired,
     comentarioCallback: PropTypes.func.isRequired,
     verPerfilCallback: PropTypes.func.isRequired,
@@ -53,7 +45,6 @@ export default class Post extends Component {
 
   render() {
     const { foto, likeCallback, comentarioCallback, verPerfilCallback } = this.props;
-
     return (
       <View>
         <TouchableOpacity style={styles.cabecalho} onPress={() => verPerfilCallback(foto.id)}>
