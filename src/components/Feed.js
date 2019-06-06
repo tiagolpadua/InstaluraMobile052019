@@ -15,8 +15,15 @@ export default class Feed extends Component {
     };
   }
 
+  /*
   componentDidMount() {
     InstaluraFetchService.get('/fotos').then(json => this.setState({ fotos: json }));
+  }
+  */
+
+  async componentDidMount() {
+    const json = await InstaluraFetchService.get('/fotos');
+    this.setState({ fotos: json });
   }
 
   adicionaComentario = (idFoto, valorComentario, inputComentario) => {
