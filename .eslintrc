@@ -26,5 +26,8 @@
     "fetch": false,
     "Headers": false
   },
+  "env": {
+    "jest": true
+  },
   "plugins": ["prettier"]
 }
