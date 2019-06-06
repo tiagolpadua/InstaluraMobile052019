@@ -4,7 +4,7 @@
   "horario": "06/06/2019 02:29",
   "urlFoto": "https://s3.amazonaws.com/caelum-online-public/react-native-parte-2/images/adittional-resources/photo-1.jpg",
   "id": 3,
-  "likeada": false,
+  "likeada": true,
   "likers": [],
   "comentarios": [],
   "comentario": "Legenda da foto"

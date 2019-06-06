@@ -20,7 +20,7 @@ exports[`Deve renderizar corretamente 1`] = `
     <Image
       source={
         Object {
-          "testUri": "../../../resources/img/s2.png",
+          "testUri": "../../../resources/img/s2-checked.png",
         }
       }
       style={
